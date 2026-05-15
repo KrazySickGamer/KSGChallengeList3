@@ -1,0 +1,24 @@
+{
+    "id": 138782723,
+    "name": "KSG List Challengee",
+    "author": "KrazySickGamer",
+    "creators": ["KrazySickGamer","DemonMan13"],
+    "verifier": "Hellman",
+    "verification": "https://www.youtube.com/watch?v=PjCcZ9ImtiA",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Mr Ivan",
+            "link": "https://streamable.com/tg23os",
+            "percent": 100,
+            "hz": 1
+        },
+        {
+            "user": "Veradaddy",
+            "link": "https://streamable.com/dqmfii",
+            "percent": 100,
+            "hz": 2
+        }
+    ]
+}

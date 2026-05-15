@@ -1,0 +1,30 @@
+{
+    "id": 136790742,
+    "name": "KrazySickGamer55",
+    "author": "TrashDasher202",
+    "creators": [],
+    "verifier": "TrashDasher202",
+    "verification": "",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Hellman",
+            "link": "https://www.youtube.com/watch?v=kOpJCebF90g",
+            "percent": 100,
+            "hz": 1
+        },
+        {
+            "user": "Mr Ivan",
+            "link": "https://streamable.com/2z6b1m",
+            "percent": 100,
+            "hz": 2
+        },
+        {
+            "user": "Veradaddy",
+            "link": "https://drive.google.com/file/d/14H61zHquqWPRZxyruEugVOQSPWp0piGE/view?usp=sharing",
+            "percent": 100,
+            "hz": 3
+        }
+    ]
+}
