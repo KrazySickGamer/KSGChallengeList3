@@ -41,6 +41,7 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
+                    <p>If the video is not a standard YouTube embed, click <a :href="level.verification" target="_blank"><u>here</u></a> to view the video.</p>
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -100,7 +101,7 @@ export default {
                     </template>
                     <h3>Submission Requirements</h3>
                     <p>
-                        Achieved the record without using hacks (List of banned hacks can be found <a href="https://docs.google.com/spreadsheets/d/1evE4nXATxRAQWu2Ajs54E6cVUqHBoSid8I7JauJnOzg/edit?usp=sharing" target="_blank">here</a>)
+                        Achieved the record without using hacks (List of banned hacks can be found <a href="https://docs.google.com/spreadsheets/d/1evE4nXATxRAQWu2Ajs54E6cVUqHBoSid8I7JauJnOzg/edit?usp=sharing" target="_blank"><u>here</u></a>)
                     </p>
                     <p>
                         Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
@@ -141,7 +142,7 @@ export default {
                     </p>
                     <h3>Additional Information</h3>
                     <p>
-                        All levels and completions on this list must be submitted to the discord server in order to be accepted. The discord server is also the best way to contact list staff if you have any questions or concerns about the list. The link to the discord can be found <a href="https://www.discord.com/invite/63CvQswbbY" target="_blank">here</a>.
+                        All levels and completions on this list must be submitted to the discord server in order to be accepted. The discord server is also the best way to contact list staff if you have any questions or concerns about the list. The link to the discord can be found <a href="https://www.discord.com/invite/63CvQswbbY" target="_blank"><u>here</u></a>.
                     </p>
                     <p>
                         Please allow 24-48 hours for a submitted level or record to be placed on the list. If more than 48 hours has passed, please open a general support ticket in the discord server.
