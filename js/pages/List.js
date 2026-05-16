@@ -1,6 +1,6 @@
 import { store } from "../main.js";
 import { embed } from "../util.js";
-import { score } from "../score.js";
+import { score, totalLevels } from "../score.js";
 import { fetchEditors, fetchList } from "../content.js";
 
 import Spinner from "../components/Spinner.js";
@@ -25,7 +25,7 @@ export default {
                 <table class="list" v-if="list">
                     <tr v-for="([level, err], i) in list">
                         <td class="rank">
-                            <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-if="i + 1 <= totalLevels" class="type-label-lg">#{{ i + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == i, 'error': !level }">
@@ -41,7 +41,7 @@ export default {
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
-                    <p>If the video is not a standard YouTube embed, click <a :href="level.verification" target="_blank"><u>here</u></a> to view the video.</p>
+                    <h3>If the video is not a standard YouTube embed, click <a :href="level.verification" target="_blank"><u>here</u></a> to view the video.</h3>
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -57,8 +57,8 @@ export default {
                         </li>
                     </ul>
                     <h2>Records</h2>
-                    <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
-                    <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
+                    <p v-if="selected + 1 <= totalLevels / 2"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
+                    <p v-else-if="selected + 1 <= totalLevels"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
@@ -160,6 +160,7 @@ export default {
         loading: true,
         selected: 0,
         errors: [],
+        totalLevels,
         roleIconMap,
         store
     }),

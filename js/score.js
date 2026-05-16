@@ -1,6 +1,4 @@
-/**
- * Numbers of decimal digits to round to
- */
+export const totalLevels = 14;
 const scale = 3;
 
 /**
@@ -11,21 +9,30 @@ const scale = 3;
  * @returns {Number}
  */
 export function score(rank, percent, minPercent) {
-    if (rank > 150) {
-        return 0;
-    }
-    if (rank > 75 && percent < 100) {
+    if (rank > totalLevels) {
         return 0;
     }
 
-    // Old formula
-    /*
-    let score = (100 / Math.sqrt((rank - 1) / 50 + 0.444444) - 50) *
-        ((percent - (minPercent - 1)) / (100 - (minPercent - 1)));
-    */
-    // New formula
-    let score = (-24.9975*Math.pow(rank-1, 0.4) + 200) *
-        ((percent - (minPercent - 1)) / (100 - (minPercent - 1)));
+    // Bottom half requires 100%
+    if (rank > totalLevels / 2 && percent < 100) {
+        return 0;
+    }
+
+    // Convert rank into a value from 0 to 1
+    const normalizedRank = (rank - 1) / (totalLevels - 1);
+
+    // Scaled score formula
+    const minScore = 5;
+
+    let baseScore =
+       minScore +
+       (200 - minScore) *
+        (1 - Math.pow(normalizedRank, 0.4));
+
+    let score =
+        baseScore *
+        ((percent - (minPercent - 1)) /
+            (100 - (minPercent - 1)));
 
     score = Math.max(0, score);
 
