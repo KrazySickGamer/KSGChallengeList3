@@ -1,5 +1,4 @@
 import { store } from "../main.js";
-import { embed } from "../util.js";
 import { score, totalLevels } from "../score.js";
 import { fetchEditors, fetchList } from "../content.js";
 
@@ -40,8 +39,49 @@ export default {
                 <div class="level" v-if="level">
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
-                    <h3>If the video is not a standard YouTube embed, click <a :href="level.verification" target="_blank"><u>here</u></a> to view the video.</h3>
+                    <template v-if="isMedalVideo">
+                        <div class="missing-video">
+                            <div class="missing-video-content">
+                                <h2>Medal Videos Cannot Be Embedded</h2>
+                                <p>
+                                    Click
+                                    <a :href="videoSource" target="_blank">
+                                        <u>here</u>
+                                    </a>
+                                    to watch the verification.
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template v-else-if="level.verification">
+
+                        <template v-if="!isEmbedVideo">
+                            <video class="video" controls>
+                                <source :src="video">
+                                Your browser does not support the video tag.
+                            </video>
+                        </template>
+
+                        <template v-else>
+                            <iframe
+                                class="video"
+                                id="videoframe"
+                                :src="video"
+                                frameborder="0">
+                            </iframe>
+                        </template>
+
+                    </template>
+
+                    <template v-else>
+                        <div class="missing-video">
+                            <div class="missing-video-content">
+                                <h2>No Verification Available</h2>
+                                <p>This level currently has no uploaded verification.</p>
+                            </div>
+                        </div>
+                    </template>
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -122,11 +162,20 @@ export default {
                         Do not use easy modes, only a record of the unmodified level qualifies
                     </p>
                     <p>
+                        Only FPS Values of 60 or above are allowed.
+                    </p>
+                    <p>
                         Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level
                     </p>
                     <h3>Level Submission Guidelines</h3>
                     <p>
-                        Have at least some gameplay (no auto levels)
+                        Have at least some gameplay (No auto levels)
+                    </p>
+                    <p>
+                        Be an original, uncopied level (Segments of other levels that are 15 seconds long or less are allowed and you can buff or repeat these segments as much as you want)
+                    </p>
+                    <p>
+                        Be submitted in the google form within a week of verification (Levels that have been on the servers for more than a week will need to have been submitted as a KSG List Open Verification in the discord server before the verification) (The form for submitting levels can be found in the discord server)
                     </p>
                     <p>
                         No Inappropriate content in the level, including but not limited to: gore, sexual content, hate speech, etc.
@@ -165,21 +214,101 @@ export default {
         store
     }),
     computed: {
+        isMedalVideo() {
+            return this.videoSource.includes("medal.tv");
+        },
         level() {
             return this.list[this.selected][0];
         },
-        video() {
-            if (!this.level.showcase) {
-                return embed(this.level.verification);
+
+        videoSource() {
+            return this.level.showcase && this.toggledShowcase
+                ? this.level.showcase
+                : this.level.verification;
+        },
+
+        embedUrl() {
+            const url = this.videoSource;
+
+            // YouTube
+            if (
+                url.includes("youtube.com") ||
+                url.includes("youtu.be")
+            ) {
+                let id = "";
+
+                if (url.includes("watch?v=")) {
+                    id = url.split("watch?v=")[1].split("&")[0];
+                }
+                else if (url.includes("youtu.be/")) {
+                    id = url.split("youtu.be/")[1].split("?")[0];
+                }
+                else if (url.includes("/shorts/")) {
+                    id = url.split("/shorts/")[1].split("?")[0];
+                }
+
+                return `https://www.youtube.com/embed/${id}`;
             }
 
-            return embed(
-                this.toggledShowcase
-                    ? this.level.showcase
-                    : this.level.verification
-            );
+            // Streamable
+            if (url.includes("streamable.com")) {
+                const id = url.split("/").pop().split("?")[0];
+                return `https://streamable.com/e/${id}`;
+            }
+
+            // Google Drive
+            if (url.includes("drive.google.com")) {
+            let id = "";
+
+            if (url.includes("/file/d/")) {
+                id = url.split("/file/d/")[1].split("/")[0];
+            }
+
+            return `https://drive.google.com/file/d/${id}/preview`;
+            }
+
+            // Medal
+            if (url.includes("medal.tv")) {
+                return null;
+            }
+            // TikTok
+            if (url.includes("tiktok.com")) {
+                const match = url.match(/video\/(\d+)/);
+
+                if (match && match[1]) {
+                    return `https://www.tiktok.com/embed/v2/${match[1]}`;
+                }
+            }
+            
+            // Twitch
+            if (url.includes("twitch.tv")) {
+
+                // Clips
+                if (url.includes("/clip/")) {
+                    const slug = url.split("/clip/")[1].split("?")[0];
+
+                    return `https://clips.twitch.tv/embed?clip=${slug}&parent=${window.location.hostname}`;
+                }
+
+                // Videos (VODs)
+                if (url.includes("/videos/")) {
+                    const id = url.split("/videos/")[1].split("?")[0];
+
+                    return `https://player.twitch.tv/?video=v${id}&parent=${window.location.hostname}`;
+                }
+            }
+            return null;
+        },
+
+        isEmbedVideo() {
+            return this.embedUrl !== null;
+        },
+
+        video() {
+            return this.embedUrl || this.videoSource;
         },
     },
+
     async mounted() {
         // Hide loading spinner
         this.list = await fetchList();
@@ -206,7 +335,6 @@ export default {
         this.loading = false;
     },
     methods: {
-        embed,
         score,
     },
 };

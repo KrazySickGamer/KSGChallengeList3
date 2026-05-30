@@ -4,9 +4,21 @@
     "author": "Veradaddy",
     "creators": [],
     "verifier": "Veradaddy",
-    "verification": "data/Veradaddy Challenge.json",
+    "verification": "https://drive.google.com/file/d/1bgW_HyQHntxc_IOziWr6UEUY1KBsqIMj/view?usp=sharing ",
     "percentToQualify": "100",
     "password": "Free To Copy",
     "records": [
+                        {
+            "user": "Lemming6779",
+            "link": "https://medal.tv/de/games/geometry-dash/clips/mKqyfQhs4K7ngaMjx?invite=cr-MSxDUUMsMjg1MTE2OTI5&v=10",
+            "percent": 100,
+            "hz": 1
+        },
+                            {
+            "user": "BblotTGD",
+            "link": "https://www.twitch.tv/bblottgd/clip/SmallHealthyCoffeeShazBotstix-zyhOgBWxZ0QR_I97",
+            "percent": 100,
+            "hz": 2
+        }
     ]
 }

@@ -1,4 +1,4 @@
-export const totalLevels = 14;
+export const totalLevels = 26;
 const scale = 3;
 
 /**
