@@ -147,7 +147,7 @@ export default {
                         Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
                     </p>
                     <p>
-                        Have either click/tap sounds or a handcam.
+                        Have either click/tap sounds or a handcam. (Mods that add click sounds such as click sounds full are not allowed)
                     </p>
                     <p>
                         The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt.
