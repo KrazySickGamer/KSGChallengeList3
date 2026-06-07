@@ -1,4 +1,4 @@
-export const totalLevels = 37;
+export const totalLevels = 40;
 const scale = 3;
 
 /**
@@ -22,7 +22,7 @@ export function score(rank, percent, minPercent) {
     const normalizedRank = (rank - 1) / (totalLevels - 1);
 
     // Scaled score formula
-    const minScore = 5;
+    const minScore = 3;
 
     let baseScore =
        minScore +
