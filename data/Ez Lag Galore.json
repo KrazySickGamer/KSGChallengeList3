@@ -8,11 +8,17 @@
     "percentToQualify": "100",
     "password": "Free To Copy",
     "records": [
-                        {
+        {
             "user": "Lemming6779",
             "link": "https://medal.tv/de/games/geometry-dash/clips/mJGqyAmXbuvKwEpfX?invite=cr-MSwyWTYsMjg1MTE2OTI5&v=12",
             "percent": 100,
             "hz": 1
+        },
+        {
+            "user": "Luki2692",
+            "link": "https://youtube.com/shorts/xcV7mHlenuQ?is=Gx5LSGxupiS_6d1D",
+            "percent": 100,
+            "hz": 2
         }
     ]
 }

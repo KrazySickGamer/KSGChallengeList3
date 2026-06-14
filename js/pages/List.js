@@ -172,7 +172,7 @@ export default {
                         Have at least some gameplay (No auto levels)
                     </p>
                     <p>
-                        Be an original, uncopied level (Segments of other levels that are 15 seconds long or less are allowed and you can buff or repeat these segments as much as you want)
+                        Be an original, uncopied level (Segments of other levels that are 15 seconds long or less are allowed and you can buff or repeat these segments as much as you want (Segments or buffed versions of levels already on the list must have clear, distinct buffs that make the gameplay clearly harder or must have an exstention of the level that is longer than 5 seconds))
                     </p>
                     <p>
                         Be submitted in the google form within a week of verification (Levels that have been on the servers for more than a week will need to have been submitted as a KSG List Open Verification in the discord server before the verification) (The form for submitting levels can be found in the discord server)

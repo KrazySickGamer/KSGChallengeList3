@@ -8,5 +8,11 @@
     "percentToQualify": "100",
     "password": "Free To Copy",
     "records": [
+        {
+            "user": "Veradaddy",
+            "link": "https://drive.google.com/file/d/1W4HfjsjhZTEzemJlOEdLlWhvSXjZLavt/view?usp=sharing",
+            "percent": 100,
+            "hz": 1
+        }
     ] 
 }
