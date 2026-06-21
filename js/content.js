@@ -4,6 +4,7 @@ import { round, score } from './score.js';
  * Path to directory containing `_list.json` and all levels
  */
 const dir = '/data';
+const historyDir = '/data/history';
 
 export async function fetchList() {
     const listResult = await fetch(`${dir}/_list.json?ts=${Date.now()}`);
@@ -43,6 +44,64 @@ export async function fetchEditors() {
         return editors;
     } catch {
         return null;
+    }
+}
+
+export async function fetchHistoryIndex() {
+    try {
+        const indexResult = await fetch(
+            `${historyDir}/index.json?ts=${Date.now()}`,
+        );
+        if (!indexResult.ok) {
+            return [];
+        }
+        const index = await indexResult.json();
+        return Array.isArray(index) ? index : [];
+    } catch {
+        return [];
+    }
+}
+
+export async function fetchLeaderboardAt(dateTime) {
+    if (!dateTime) {
+        return fetchLeaderboard();
+    }
+
+    const index = await fetchHistoryIndex();
+    const requestedAt = new Date(dateTime);
+    if (Number.isNaN(requestedAt.getTime())) {
+        return [null, ['Invalid snapshot date/time.']];
+    }
+
+    const availableSnapshot = index
+        .filter((entry) => new Date(entry.snapshotAt) <= requestedAt)
+        .sort(
+            (a, b) =>
+                new Date(b.snapshotAt).getTime() -
+                new Date(a.snapshotAt).getTime(),
+        )[0];
+
+    if (!availableSnapshot) {
+        return [
+            null,
+            [
+                'No historical snapshot is available for that date and time yet.',
+            ],
+        ];
+    }
+
+    try {
+        const snapshotResult = await fetch(
+            `${historyDir}/${availableSnapshot.path}?ts=${Date.now()}`,
+        );
+        if (!snapshotResult.ok) {
+            throw new Error('Snapshot load failed.');
+        }
+        const snapshot = await snapshotResult.json();
+        const leaderboard = snapshot.leaderboard || snapshot.data || [];
+        return [leaderboard, []];
+    } catch {
+        return [null, ['Failed to load the selected historical snapshot.']];
     }
 }
 

@@ -16,11 +16,81 @@
 .page-leaderboard .error-container {
     grid-row: 1;
     grid-column: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1rem 0;
 }
 .page-leaderboard .error-container .error {
     padding: 1rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
+    border-radius: 0.5rem;
+}
+.page-leaderboard .history-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background-color: var(--color-background-hover);
+    border-radius: 0.75rem;
+    padding: 1rem;
+}
+.page-leaderboard .history-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: end;
+}
+.page-leaderboard .history-controls label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+}
+.page-leaderboard .history-controls input {
+    min-width: 10rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--color-background-hover);
+    border-radius: 0.5rem;
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+}
+.page-leaderboard .history-button,
+.page-leaderboard .history-reset {
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.page-leaderboard .history-button {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+}
+.page-leaderboard .history-button--secondary {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    border: 1px solid var(--color-background-hover);
+}
+.page-leaderboard .history-reset {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    border: 1px solid var(--color-background-hover);
+}
+.page-leaderboard .history-button:disabled,
+.page-leaderboard .history-reset:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.page-leaderboard .history-message {
+    margin: 0;
+    color: var(--color-on-background);
+}
+.page-leaderboard .history-timezone {
+    margin: 0;
+    color: var(--color-on-background);
+    font-size: 0.9rem;
+    opacity: 0.85;
 }
 .page-leaderboard .board-container,
 .page-leaderboard .player-container {

@@ -1,0 +1,39 @@
+name: Snapshot History
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - production
+  schedule:
+    - cron: "0 */6 * * *"
+
+jobs:
+  generate-snapshots:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Generate snapshot archive
+        run: python scripts/generate_history.py
+      - name: Commit snapshot updates
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git status --short
+          git add data/history
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit."
+          else
+            git commit -m "Update leaderboard history snapshots"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
