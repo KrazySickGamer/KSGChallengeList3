@@ -38,6 +38,24 @@ What are some common reasons for the website not loading?
   the last lines within list entries. A good way to find the error-causing lines can be found
   by using `Inspect Element` and going to the `Console` tab.
 
+### Snapshot history setup
+
+The leaderboard page includes a snapshot history viewer and a button to generate snapshots.
+To run the backend endpoint that writes snapshots into the archive:
+
+1. Install Python dependencies if needed.
+2. Start the server:
+   ```bash
+   python server.py
+   ```
+3. The site will be able to call:
+   ```http
+   POST /api/generate-snapshot
+   ```
+4. The endpoint runs [scripts/generate_history.py](scripts/generate_history.py) and stores new history entries under [data/history](data/history).
+
+If you are hosting this project somewhere that already runs a backend, you can keep the same endpoint logic there instead of using the included server.
+
 ---
 
 ## More Coming Soon!

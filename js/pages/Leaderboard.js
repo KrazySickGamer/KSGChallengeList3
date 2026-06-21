@@ -1,4 +1,4 @@
-import { fetchLeaderboard, fetchLeaderboardAt } from '../content.js';
+import { fetchLeaderboard, fetchLeaderboardAt, fetchHistoryIndex } from '../content.js';
 import { localize } from '../util.js';
 
 import Spinner from '../components/Spinner.js';
@@ -21,6 +21,8 @@ export default {
         historyTimeZone: '',
         snapshotSaving: false,
         generateNowLoading: false,
+        selectedSnapshot: '',
+        availableSnapshots: [],
     }),
     template: `
         <main v-if="loading">
@@ -36,11 +38,16 @@ export default {
                         <div class="history-controls">
                             <label>
                                 <span>Date</span>
-                                <input type="date" v-model="historyDate">
-                            </label>
-                            <label>
-                                <span>Time</span>
-                                <input type="time" step="1" v-model="historyTime">
+                                <select v-model="selectedSnapshot">
+                                    <option value="">Choose a snapshot</option>
+                                    <option
+                                        v-for="snapshot in availableSnapshots"
+                                        :key="snapshot.path"
+                                        :value="snapshot.snapshotAt"
+                                    >
+                                        {{ new Date(snapshot.snapshotAt).toLocaleString() }}
+                                    </option>
+                                </select>
                             </label>
                             <button class="history-button" @click="loadHistory" :disabled="historyLoading">
                                 {{ historyLoading ? 'Loading…' : 'View snapshot' }}
@@ -140,6 +147,7 @@ export default {
         this.historyTimeZone =
             Intl.DateTimeFormat().resolvedOptions().timeZone ||
             'your browser local timezone';
+        this.availableSnapshots = await fetchHistoryIndex();
         const loadedFromQuery = await this.loadFromQuery();
         if (!loadedFromQuery) {
             await this.loadCurrentLeaderboard();
@@ -216,47 +224,30 @@ export default {
             this.historyMessage = `Generated snapshot: ${filename}`;
         },
         async loadHistory() {
-            if (!this.historyDate || !this.historyTime) {
-                this.historyMessage = 'Please choose both a date and a time.';
-                return;
-            }
-
-            const requestedAt = `${this.historyDate}T${this.historyTime}`;
-            const date = new Date(requestedAt);
-            if (Number.isNaN(date.getTime())) {
-                this.historyMessage = 'That date and time is not valid.';
+            if (!this.selectedSnapshot) {
+                this.historyMessage = 'Please choose a snapshot.';
                 return;
             }
 
             this.historyLoading = true;
-            this.historyMessage = 'Loading snapshot…';
-            const [leaderboard, err] = await fetchLeaderboardAt(date.toISOString());
+
+            const [leaderboard, err] =
+                await fetchLeaderboardAt(this.selectedSnapshot);
+
             this.historyLoading = false;
 
-            if (err && err.length > 0) {
+            if (err.length) {
                 this.historyMessage = err[0];
-                this.err = err;
-                this.leaderboard = [];
-                this.selected = 0;
                 return;
             }
 
-            const historyLabel = new Intl.DateTimeFormat(undefined, {
-                dateStyle: 'medium',
-                timeStyle: 'medium',
-                timeZoneName: 'short',
-            }).format(date);
-
-            this.leaderboard = leaderboard || [];
+            this.leaderboard = leaderboard;
             this.err = [];
-            this.isHistoryMode = true;
-            this.historyMessage = `Viewing snapshot for ${historyLabel}`;
-            this.historyLabel = historyLabel;
             this.selected = 0;
-            this.$router.replace({
-                path: this.$route.path,
-                query: { ...this.$route.query, at: date.toISOString() },
-            }).catch(() => {});
+            this.isHistoryMode = true;
+
+            this.historyMessage =
+                `Viewing snapshot from ${new Date(this.selectedSnapshot).toLocaleString()}`;
         },
         resetHistory() {
             this.$router.replace({

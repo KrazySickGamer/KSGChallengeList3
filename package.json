@@ -1,0 +1,12 @@
+{
+  "name": "ksg-challenge-list-history",
+  "version": "1.0.0",
+  "description": "Backend endpoint for generating and saving leaderboard snapshots.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

@@ -150,9 +150,6 @@ export default {
                         Have either click/tap sounds or a handcam. (Mods that add click sounds such as click sounds full are not allowed)
                     </p>
                     <p>
-                        If spam is used, it must be done with no more than 2 fingers.
-                    </p>
-                    <p>
                         The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt.
                     </p>
                     <p>
