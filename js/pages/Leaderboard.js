@@ -9,6 +9,7 @@ export default {
     },
     data: () => ({
         leaderboard: [],
+        list: [],
         loading: true,
         selected: 0,
         err: [],
@@ -156,8 +157,10 @@ export default {
     methods: {
         localize,
         async loadCurrentLeaderboard() {
-            const [leaderboard, err] = await fetchLeaderboard();
+            const [leaderboard, list, err] = await fetchLeaderboard();
+
             this.leaderboard = leaderboard || [];
+            this.list = list || [];
             this.err = err || [];
             this.loading = false;
             this.isHistoryMode = false;
@@ -181,7 +184,7 @@ export default {
             });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
-            const filename = `leaderboard-snapshot-${timestamp.replace(/[:.]/g, '-')}.json`;
+            const filename = `${timestamp.slice(0, 19).replace(/[:.]/g, '-')}Z.json`;
             link.href = url;
             link.download = filename;
             document.body.appendChild(link);
@@ -202,17 +205,19 @@ export default {
             this.historyMessage = 'Generating snapshot…';
 
             const timestamp = new Date().toISOString();
+            console.log(this.list);
             const snapshot = {
                 snapshotAt: timestamp,
                 leaderboard: this.leaderboard,
                 errors: this.err || [],
+                list: this.list || [],
             };
             const blob = new Blob([JSON.stringify(snapshot, null, 2)], {
                 type: 'application/json',
             });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
-            const filename = `leaderboard-snapshot-${timestamp.replace(/[:.]/g, '-')}.json`;
+            const filename = `${timestamp.slice(0, 19).replace(/[:.]/g, '-')}Z.json`;
             link.href = url;
             link.download = filename;
             document.body.appendChild(link);
@@ -231,7 +236,7 @@ export default {
 
             this.historyLoading = true;
 
-            const [leaderboard, err] =
+            const [leaderboard, list, err] =
                 await fetchLeaderboardAt(this.selectedSnapshot);
 
             this.historyLoading = false;
@@ -242,6 +247,7 @@ export default {
             }
 
             this.leaderboard = leaderboard;
+            this.list = list;
             this.err = [];
             this.selected = 0;
             this.isHistoryMode = true;

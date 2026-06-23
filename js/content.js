@@ -70,7 +70,7 @@ export async function fetchLeaderboardAt(dateTime) {
     const index = await fetchHistoryIndex();
     const requestedAt = new Date(dateTime);
     if (Number.isNaN(requestedAt.getTime())) {
-        return [null, ['Invalid snapshot date/time.']];
+        return [null, [], ['Invalid snapshot date/time.']];
     }
 
     const availableSnapshot = index
@@ -82,12 +82,7 @@ export async function fetchLeaderboardAt(dateTime) {
         )[0];
 
     if (!availableSnapshot) {
-        return [
-            null,
-            [
-                'No historical snapshot is available for that date and time yet.',
-            ],
-        ];
+        return [null, [], ['No historical snapshot is available for that date and time yet.']];
     }
 
     try {
@@ -98,10 +93,13 @@ export async function fetchLeaderboardAt(dateTime) {
             throw new Error('Snapshot load failed.');
         }
         const snapshot = await snapshotResult.json();
-        const leaderboard = snapshot.leaderboard || snapshot.data || [];
-        return [leaderboard, []];
+
+        const leaderboard =
+            snapshot.leaderboard || snapshot.data || [];
+
+        return [leaderboard, snapshot.list || [], []];
     } catch {
-        return [null, ['Failed to load the selected historical snapshot.']];
+        return [null, [], ['Failed to load the selected historical snapshot.']];
     }
 }
 
@@ -179,5 +177,11 @@ export async function fetchLeaderboard() {
     });
 
     // Sort by total score
-    return [res.sort((a, b) => b.total - a.total), errs];
+    const leaderboard = res.sort((a, b) => b.total - a.total);
+
+    const processedList = list
+        .filter(([level]) => level)
+        .map(([level]) => level);
+
+    return [leaderboard, processedList, errs];
 }

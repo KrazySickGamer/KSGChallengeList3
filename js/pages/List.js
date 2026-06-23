@@ -1,6 +1,6 @@
 import { store } from "../main.js";
 import { score, totalLevels } from "../score.js";
-import { fetchEditors, fetchList } from "../content.js";
+import { fetchEditors, fetchList, fetchHistoryIndex } from "../content.js";
 
 import Spinner from "../components/Spinner.js";
 import LevelAuthors from "../components/List/LevelAuthors.js";
@@ -21,6 +21,30 @@ export default {
         </main>
         <main v-else class="page-list">
             <div class="list-container">
+                <div class="history-panel" v-if="!loading">
+                    <div class="history-controls">
+                        <label>
+                            <span>Date</span>
+                            <select v-model="selectedSnapshot">
+                                <option value="">Choose a snapshot</option>
+                                <option
+                                    v-for="snapshot in availableSnapshots"
+                                    :key="snapshot.path"
+                                    :value="snapshot.snapshotAt"
+                                >
+                                    {{ new Date(snapshot.snapshotAt).toLocaleString() }}
+                                </option>
+                            </select>
+                        </label>
+                        <button class="history-button" @click="loadSnapshot" :disabled="historyLoading">
+                            {{ historyLoading ? 'Loading…' : 'View snapshot' }}
+                        </button>
+                        <button class="history-reset" @click="resetSnapshot" :disabled="historyLoading">
+                            Show live
+                        </button>
+                    </div>
+                    <p class="history-message" v-if="historyMessage">{{ historyMessage }}</p>
+                </div>
                 <table class="list" v-if="list">
                     <tr v-for="([level, err], i) in list">
                         <td class="rank">
@@ -211,7 +235,12 @@ export default {
         errors: [],
         totalLevels,
         roleIconMap,
-        store
+        store,
+        availableSnapshots: [],
+        selectedSnapshot: '',
+        historyLoading: false,
+        historyMessage: '',
+        isHistoryMode: false,
     }),
     computed: {
         isMedalVideo() {
@@ -311,6 +340,7 @@ export default {
 
     async mounted() {
         // Hide loading spinner
+        this.availableSnapshots = await fetchHistoryIndex();
         this.list = await fetchList();
         this.editors = await fetchEditors();
 
@@ -336,5 +366,46 @@ export default {
     },
     methods: {
         score,
+        async loadSnapshot() {
+            if (!this.selectedSnapshot) {
+                this.historyMessage = 'Please choose a snapshot.';
+                return;
+            }
+            this.historyLoading = true;
+            try {
+                const index = this.availableSnapshots;
+                const requestedAt = new Date(this.selectedSnapshot);
+                const match = index
+                    .filter((e) => new Date(e.snapshotAt) <= requestedAt)
+                    .sort((a, b) => new Date(b.snapshotAt) - new Date(a.snapshotAt))[0];
+                if (!match) {
+                    this.historyMessage = 'No snapshot available for that date.';
+                    return;
+                }
+                const res = await fetch(`/data/history/${match.path}?ts=${Date.now()}`);
+                if (!res.ok) throw new Error('Failed to load snapshot.');
+                const snapshot = await res.json();
+                const listData = snapshot.list;
+                if (!listData || !listData.length) {
+                    this.historyMessage = 'Snapshot does not contain list data.';
+                    return;
+                }
+                this.list = listData.map((level) => [level, null]);
+                this.selected = 0;
+                this.isHistoryMode = true;
+                this.historyMessage = `Viewing snapshot from ${new Date(this.selectedSnapshot).toLocaleString()}`;
+            } catch (err) {
+                this.historyMessage = `Error: ${err.message}`;
+            } finally {
+                this.historyLoading = false;
+            }
+        },
+        async resetSnapshot() {
+            this.selectedSnapshot = '';
+            this.historyMessage = '';
+            this.isHistoryMode = false;
+            this.selected = 0;
+            this.list = await fetchList();
+        },
     },
 };
