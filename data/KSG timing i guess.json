@@ -1,9 +1,9 @@
 {
     "id": 143121870,
     "name": "KSG timing i guess",
-    "author": "FaFiK",
-    "creators": ["FaFiK"],
-    "verifier": "FaFiK",
+    "author": ">ω< FaFiK",
+    "creators": [">ω< FaFiK"],
+    "verifier": ">ω< FaFiK",
     "verification": "https://drive.google.com/file/d/1Ake1p579IKwfLOnKQIHwjRAmETIbQRKv/view?usp=sharing",
     "percentToQualify": "100",
     "password": "Free To Copy",
@@ -15,16 +15,10 @@
             "hz": 1
         },
         {
-            "user": "Veradaddy",
-            "link": "https://drive.google.com/file/d/15idDD3YzaWqiCCHFTNUZT_OGmls0wBHx/view?usp=sharing",
-            "percent": 100,
-            "hz": 2
-        },
-        {
             "user": "Lemming6779",
             "link": "https://medal.tv/games/geometry-dash/clips/mXBXjl5DAkpRONTtk?invite=cr-MSxpYXosMjg1MTE2OTI5",
             "percent": 100,
-            "hz": 3
+            "hz": 2
         }
     ]
 }

@@ -9,16 +9,28 @@
     "password": "Free To Copy",
     "records": [
         {
-            "user": "Veradaddy",
-            "link": "https://drive.google.com/file/d/1DsuNJZgyhSw43rAa8GU9vf4lx1ROkSY1/view?usp=sharing",
+            "user": ">ω< buxoch",
+            "link": "https://drive.google.com/file/d/1-Ei_Swuqg83tk7Pbz-kMoNl2eV_CYS9n/view?usp=sharing",
             "percent": 100,
             "hz": 1
         },
         {
-            "user": "buxoch",
-            "link": "https://drive.google.com/file/d/1-Ei_Swuqg83tk7Pbz-kMoNl2eV_CYS9n/view?usp=sharing",
+            "user": "BblotTGD",
+            "link": "https://drive.google.com/file/d/1J7p0E-4pbeNFbahL-zfZNTu08L1U3_d4/view?usp=sharing",
             "percent": 100,
             "hz": 2
+        },
+        {
+            "user": "Eggnition",
+            "link": "https://youtu.be/3TPUOOpTWso",
+            "percent": 100,
+            "hz": 3
+        },
+        {
+            "user": "Pika",
+            "link": "https://drive.google.com/file/d/1rdUM9q7ZCLlKilTeEb06npRzou-ahxOf/view?usp=sharing",
+            "percent": 100,
+            "hz": 4
         }
     ]
 }

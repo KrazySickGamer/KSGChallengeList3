@@ -10,33 +10,27 @@
     "records": [
         {
             "user": "Mr Ivan",
-            "link": "https://streamable.com/tg23os",
+            "link": "https://drive.google.com/file/d/1imEmUhR4sv_v8U83hwbGdbpgVIQDn258/view?usp=sharing",
             "percent": 100,
             "hz": 1
-        },
-        {
-            "user": "Veradaddy",
-            "link": "https://streamable.com/dqmfii",
-            "percent": 100,
-            "hz": 2
         },
         {
             "user": "Lemming6779",
             "link": "https://medal.tv/games/geometry-dash/clips/mJGF2HcvukDOiwU9o?invite=cr-MSxMaXcsMjg1MTE2OTI5",
             "percent": 100,
-            "hz": 3
+            "hz": 2
         },
         {
             "user": "Luki2692",
             "link": "https://youtube.com/shorts/bMeLHT9txhM?is=ISh1hkirIN7q7U07",
             "percent": 100,
-            "hz": 4
+            "hz": 3
         },
         {
-            "user": "buxoch",
+            "user": ">ω< buxoch",
             "link": "https://drive.google.com/file/d/1QLBneJnO8NRvDI1AUYT0504bT56U_EqE/view?usp=sharing",
             "percent": 100,
-            "hz": 5
+            "hz": 4
         }
     ]
 }

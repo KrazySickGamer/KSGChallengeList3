@@ -11,11 +11,6 @@
     },
     {
         "role": "admin",
-        "name": "Veradaddy",
-        "link": "https://www.tiktok.com/@veradadgd"
-    },
-    {
-        "role": "admin",
         "name": "UNC",
         "link": "https://www.youtube.com/@Whatisbroonabout"
     },
@@ -23,5 +18,10 @@
         "role": "dev",
         "name": "Polik",
         "link": "https://www.github.com/PolikVirus"
+    },
+    {
+        "role": "dev",
+        "name": "GMDAtomix",
+        "link": ""
     }
 ]

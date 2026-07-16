@@ -9,28 +9,16 @@
     "password": "Free To Copy",
     "records": [
         {
-            "user": "Veradaddy",
-            "link": "https://drive.google.com/file/d/1STux4E5OhYWUi26rrZbsaGYmvU7W9s2C/view?usp=sharing",
-            "percent": 100,
-            "hz": 1
-        },
-        {
-            "user": "BblotTGD",
-            "link": "https://medal.tv/games/geometry-dash/clips/mOZ2uJr8LH3naZfM8?invite=cr-MSxuYmcsNjQyNjUxMDU1",
-            "percent": 100,
-            "hz": 2
-        },
-        {
             "user": "Luki2692",
             "link": "https://youtube.com/shorts/s1Wu3fmzJUE?is=wu0X-pxwlSBLGJSc",
             "percent": 100,
-            "hz": 3
+            "hz": 1
         },
         {
             "user": "Lemming6779",
             "link": "https://medal.tv/games/geometry-dash/clips/mXBetQVVWbKuLX0Ke?invite=cr-MSxzazcsMjg1MTE2OTI5",
             "percent": 100,
-            "hz": 4
+            "hz": 2
         }
     ]
 }

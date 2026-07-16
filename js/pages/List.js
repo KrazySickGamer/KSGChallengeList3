@@ -193,7 +193,7 @@ export default {
                     </p>
                     <h3>Level Submission Guidelines</h3>
                     <p>
-                        Have at least some gameplay (No auto levels)
+                        No very low effort levels (this includes levels that are very short and are very basic layouts)
                     </p>
                     <p>
                         Be an original, uncopied level (Segments of other levels that are 15 seconds long or less are allowed and you can buff or repeat these segments as much as you want (Segments or buffed versions of levels already on the list must have clear, distinct buffs that make the gameplay clearly harder or must have an exstention of the level that is longer than 5 seconds))
@@ -206,6 +206,9 @@ export default {
                     </p>
                     <p>
                         Be 45 seconds long or less.
+                    </p>
+                    <p>
+                        Spam parts in levels must be passable at lower than 15 CPS.
                     </p>
                     <p>
                         Be uploaded to the geometry dash servers (Levels that get deleted from the servers will be removed from the list)

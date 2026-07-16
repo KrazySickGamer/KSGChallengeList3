@@ -20,8 +20,6 @@ export default {
         isHistoryMode: false,
         historyLabel: '',
         historyTimeZone: '',
-        snapshotSaving: false,
-        generateNowLoading: false,
         selectedSnapshot: '',
         availableSnapshots: [],
     }),
@@ -52,12 +50,6 @@ export default {
                             </label>
                             <button class="history-button" @click="loadHistory" :disabled="historyLoading">
                                 {{ historyLoading ? 'Loading…' : 'View snapshot' }}
-                            </button>
-                            <button class="history-button history-button--secondary" @click="generateSnapshot" :disabled="snapshotSaving || !leaderboard.length">
-                                {{ snapshotSaving ? 'Saving…' : 'Save snapshot' }}
-                            </button>
-                            <button class="history-button" @click="generateSnapshotNow" :disabled="generateNowLoading">
-                                {{ generateNowLoading ? 'Generating…' : 'Generate snapshot now' }}
                             </button>
                             <button class="history-reset" @click="resetHistory" :disabled="historyLoading">
                                 Show live
@@ -165,68 +157,6 @@ export default {
             this.loading = false;
             this.isHistoryMode = false;
             this.historyMessage = '';
-        },
-        generateSnapshot() {
-            if (!this.leaderboard || this.leaderboard.length === 0) {
-                this.historyMessage = 'There is no leaderboard data to save yet.';
-                return;
-            }
-
-            this.snapshotSaving = true;
-            const timestamp = new Date().toISOString();
-            const snapshot = {
-                snapshotAt: timestamp,
-                leaderboard: this.leaderboard,
-                errors: this.err || [],
-            };
-            const blob = new Blob([JSON.stringify(snapshot, null, 2)], {
-                type: 'application/json',
-            });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            const filename = `${timestamp.slice(0, 19).replace(/[:.]/g, '-')}Z.json`;
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-
-            this.snapshotSaving = false;
-            this.historyMessage = `Downloaded snapshot: ${filename}`;
-        },
-        generateSnapshotNow() {
-            if (!this.leaderboard || this.leaderboard.length === 0) {
-                this.historyMessage = 'There is no leaderboard data to generate yet.';
-                return;
-            }
-
-            this.generateNowLoading = true;
-            this.historyMessage = 'Generating snapshot…';
-
-            const timestamp = new Date().toISOString();
-            console.log(this.list);
-            const snapshot = {
-                snapshotAt: timestamp,
-                leaderboard: this.leaderboard,
-                errors: this.err || [],
-                list: this.list || [],
-            };
-            const blob = new Blob([JSON.stringify(snapshot, null, 2)], {
-                type: 'application/json',
-            });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            const filename = `${timestamp.slice(0, 19).replace(/[:.]/g, '-')}Z.json`;
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-
-            this.generateNowLoading = false;
-            this.historyMessage = `Generated snapshot: ${filename}`;
         },
         async loadHistory() {
             if (!this.selectedSnapshot) {

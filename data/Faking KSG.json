@@ -9,40 +9,34 @@
     "password": "Free To Copy",
     "records": [
         {
-            "user": "Veradaddy",
-            "link": "https://drive.google.com/file/d/1BGQhJe2mVHu9d71VIBW72W66eKvStw9u/view?usp=sharing",
-            "percent": 100,
-            "hz": 1
-        },
-        {
             "user": "Hellman",
             "link": "https://www.youtube.com/watch?v=cacaf9CCKvM",
             "percent": 100,
-            "hz": 2
+            "hz": 1
         },
         {
             "user": "Lemming6779",
             "link": "https://medal.tv/de/games/geometry-dash/clips/mJGzVUR5CJ8Z1MKxq?invite=cr-MSwzcEcsMjg1MTE2OTI5&v=16",
             "percent": 100,
-            "hz": 3
-        },
-                    {
-            "user": "BblotTGD",
-            "link": "https://www.twitch.tv/bblottgd/clip/DeliciousFunnyCheddarSMOrc-WZ2Y5-DsrbtHaW41",
-            "percent": 100,
-            "hz": 4
+            "hz": 2
         },
         {
-            "user": "buxoch",
-            "link": "https://medal.tv/games/geometry-dash/clips/mOvw4FhHdxpas5UJQ?invite=cr-MSw4MXosNDA3NzIyODQx&v=22",
+            "user": "BblotTGD",
+            "link": "https://drive.google.com/file/d/18J0tZk2V5cSESJMoGOHgnicmdinqKt1h/view?usp=sharing",
             "percent": 100,
-            "hz": 5
+            "hz": 3
+        },
+        {
+            "user": ">ω< buxoch",
+            "link": "https://drive.google.com/file/d/1msvT7o5HUR-olVeW0idwww3Su2F2mXcg/view?usp=sharing",
+            "percent": 100,
+            "hz": 4
         },
         {
             "user": "Luki2692",
             "link": "https://youtube.com/shorts/ZuDzSK_oS5I?is=Y9UcbALx6QOFK8KX",
             "percent": 100,
-            "hz": 6
+            "hz": 5
         }
     ]
 }

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 HISTORY_DIR = DATA_DIR / "history"
 LIST_PATH = DATA_DIR / "_list.json"
-TOTAL_LEVELS = 46
+TOTAL_LEVELS = 40
 SCALE = 3
 
 
@@ -161,39 +161,38 @@ def main() -> None:
     snapshot_name = f"{safe_timestamp}.json"
     snapshot_path = HISTORY_DIR / date_folder / snapshot_name
 
-    # Build list data in the same format fetchList() returns: [(level, err), ...]
-    # Each entry is [level_dict, null] or [null, path_string]
-    list_data = []
+    # Build the processed list exactly like fetchLeaderboard() returns
+    processed_list = []
 
-    for path in list_paths:
+    for rank, path in enumerate(list_paths, start=1):
         level_path = DATA_DIR / f"{path}.json"
 
         if not level_path.exists():
-            list_data.append([None, path])
             continue
 
         try:
             level = load_json(level_path)
 
-            # Match fetchList()
-            level["path"] = path
-            level["records"] = sorted(
-                level.get("records", []),
-                key=lambda r: r["percent"],
-                reverse=True,
-            )
-
-            list_data.append([level, None])
+            processed_list.append({
+                **level,
+                "path": path,
+                "records": sorted(
+                    level.get("records", []),
+                    key=lambda r: r["percent"],
+                    reverse=True,
+                ),
+            })
 
         except Exception:
-            list_data.append([None, path])
+            pass
 
     snapshot_payload = {
         "snapshotAt": timestamp,
         "leaderboard": leaderboard,
-        "list": list_data,
+        "list": processed_list,
         "errors": errs,
     }
+
     print("Writing snapshot to:", snapshot_path)
     print("Snapshot keys:", snapshot_payload.keys())
     print("List entries:", len(snapshot_payload["list"]))
