@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 HISTORY_DIR = DATA_DIR / "history"
 LIST_PATH = DATA_DIR / "_list.json"
-TOTAL_LEVELS = 40
+TOTAL_LEVELS = 49
 SCALE = 3
 
 

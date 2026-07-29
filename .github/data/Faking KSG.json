@@ -1,0 +1,48 @@
+{
+    "id": 140280160,
+    "name": "Faking KSG",
+    "author": "Mr Ivan",
+    "creators": [],
+    "verifier": "Mr Ivan",
+    "verification": "https://www.youtube.com/watch?v=IHwCcUYKFAc",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Hellman",
+            "link": "https://www.youtube.com/watch?v=cacaf9CCKvM",
+            "percent": 100,
+            "hz": 1
+        },
+        {
+            "user": "Lemming6779",
+            "link": "https://medal.tv/de/games/geometry-dash/clips/mJGzVUR5CJ8Z1MKxq?invite=cr-MSwzcEcsMjg1MTE2OTI5&v=16",
+            "percent": 100,
+            "hz": 2
+        },
+        {
+            "user": "BblotTGD",
+            "link": "https://drive.google.com/file/d/18J0tZk2V5cSESJMoGOHgnicmdinqKt1h/view?usp=sharing",
+            "percent": 100,
+            "hz": 3
+        },
+        {
+            "user": ">ω< buxoch",
+            "link": "https://drive.google.com/file/d/1msvT7o5HUR-olVeW0idwww3Su2F2mXcg/view?usp=sharing",
+            "percent": 100,
+            "hz": 4
+        },
+        {
+            "user": "Luki2692",
+            "link": "https://youtube.com/shorts/ZuDzSK_oS5I?is=Y9UcbALx6QOFK8KX",
+            "percent": 100,
+            "hz": 5
+        },
+        {
+            "user": "NutellaGMD",
+            "link": "https://drive.google.com/file/d/1AnYisHqMGynwnCFBuV-fS81zESVFLqXZ/view?usp=drivesdk",
+            "percent": 100,
+            "hz": 6
+        }
+    ]
+}

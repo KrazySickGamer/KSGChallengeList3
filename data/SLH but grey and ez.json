@@ -13,6 +13,25 @@
             "link": "https://youtube.com/shorts/nHEew_Cv9Co?is=DTXERgWQRbkvcquz",
             "percent": 100,
             "hz": 1
+        },
+
+        {
+            "user": "NutellaGMD",
+            "link": "https://youtu.be/rGAOCOmGk4M?si=qY8IqZ2l9pXEOejA",
+            "percent": 100,
+            "hz": 2
+        },
+        {
+            "user": ">ω< buxoch",
+            "link": "https://drive.google.com/file/d/139Il00v9_q7rr2EiuG8hqiSPeGkhA4wf/view",
+            "percent": 100,
+            "hz": 3
+        },
+        {
+            "user": "Pika",
+            "link": "https://drive.google.com/file/d/1TmizQoZr91u9QWJbzokwYor5GbQgC7X3/view",
+            "percent": 100,
+            "hz": 4
         }
     ]
 }

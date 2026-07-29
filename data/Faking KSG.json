@@ -37,6 +37,18 @@
             "link": "https://youtube.com/shorts/ZuDzSK_oS5I?is=Y9UcbALx6QOFK8KX",
             "percent": 100,
             "hz": 5
+        },
+        {
+            "user": "NutellaGMD",
+            "link": "https://drive.google.com/file/d/1AnYisHqMGynwnCFBuV-fS81zESVFLqXZ/view?usp=drivesdk",
+            "percent": 100,
+            "hz": 6
+        },
+        {
+            "user": "Pika",
+            "link": "https://drive.google.com/file/d/1jnWF636bNC-gqRdZiSiTXCRBCYF274Aw/view",
+            "percent": 100,
+            "hz": 7
         }
     ]
 }

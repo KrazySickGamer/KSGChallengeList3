@@ -8,5 +8,11 @@
     "percentToQualify": "100",
     "password": "Free To Copy",
     "records": [
+        {
+            "user": "Pika",
+            "link": "https://drive.google.com/file/d/1rwUcZ15PExR2wkjkb5KzKC-CNFbXYDba/view?usp=sharing",
+            "percent": 100,
+            "hz": 1
+        }
     ]
 }

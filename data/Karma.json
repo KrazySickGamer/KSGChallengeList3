@@ -1,0 +1,30 @@
+{
+    "id": 145050186,
+    "name": "Karma",
+    "author": "Mr Ivan",
+    "creators": [],
+    "verifier": "Mr Ivan",
+    "verification": "https://www.youtube.com/watch?v=citWfSAvu2Q",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Luki2692",
+            "link": "https://www.youtube.com/shorts/cBKORD-eeeY",
+            "percent": 100,
+            "hz": 1
+        },
+        {
+            "user": "GMDAtomiX :3",
+            "link": "https://drive.google.com/file/d/1A2QYEXA0enuXz9t-KlaUor1F9yPG76fk/view?usp=sharing",
+            "percent": 100,
+            "hz": 2
+        },
+        {
+            "user": "Pika",
+            "link": "https://drive.google.com/file/d/1bNPZeAfI0zGRWh_xFua1YMAjNNu3UlO-/view?usp=sharing",
+            "percent": 100,
+            "hz": 3
+        }
+    ]
+}

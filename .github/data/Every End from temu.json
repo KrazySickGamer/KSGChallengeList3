@@ -1,0 +1,30 @@
+{
+    "id": 143177288,
+    "name": "Every End from temu",
+    "author": "Mr Ivan",
+    "creators": [],
+    "verifier": "Mr Ivan",
+    "verification": "https://youtu.be/CJkLbzhv8KU?is=KPBstlvJhn-bVJLX",
+    "percentToQualify": "100",
+    "password": "Free To Copy",
+    "records": [
+        {
+            "user": "Luki2692",
+            "link": "https://youtube.com/shorts/MuNSmvx5FK4?is=syOCcm7Q-g4J7iMy",
+            "percent": 100,
+            "hz": 1
+        },
+        {
+            "user": "Pika",
+            "link": "https://drive.google.com/file/d/17KMovCNMu_FBbIgr1RPunc7NoGqg3vRe/view?usp=sharing",
+            "percent": 100,
+            "hz": 2
+        },
+        {
+            "user": "Heste",
+            "link": "https://docs.google.com/videos/d/1TuzE3ESGbqhV3senu_F_VYy7Uk3qlZ7SKEVvlUHHe-Q/play",
+            "percent": 100,
+            "hz": 3
+        }
+    ]
+}
