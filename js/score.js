@@ -1,14 +1,6 @@
-export const totalLevels = 49;
 const scale = 3;
 
-/**
- * Calculate the score awarded when having a certain percentage on a list level
- * @param {Number} rank Position on the list
- * @param {Number} percent Percentage of completion
- * @param {Number} minPercent Minimum percentage required
- * @returns {Number}
- */
-export function score(rank, percent, minPercent) {
+export function score(rank, percent, minPercent, totalLevels) {
     if (rank > totalLevels) {
         return 0;
     }
@@ -18,15 +10,13 @@ export function score(rank, percent, minPercent) {
         return 0;
     }
 
-    // Convert rank into a value from 0 to 1
     const normalizedRank = (rank - 1) / (totalLevels - 1);
 
-    // Scaled score formula
     const minScore = 3;
 
     let baseScore =
-       minScore +
-       (200 - minScore) *
+        minScore +
+        (200 - minScore) *
         (1 - Math.pow(normalizedRank, 0.4));
 
     let score =
@@ -44,17 +34,19 @@ export function score(rank, percent, minPercent) {
 }
 
 export function round(num) {
-    if (!('' + num).includes('e')) {
-        return +(Math.round(num + 'e+' + scale) + 'e-' + scale);
+    if (!("" + num).includes("e")) {
+        return +(Math.round(num + "e+" + scale) + "e-" + scale);
     } else {
-        var arr = ('' + num).split('e');
-        var sig = '';
+        var arr = ("" + num).split("e");
+        var sig = "";
+
         if (+arr[1] + scale > 0) {
-            sig = '+';
+            sig = "+";
         }
+
         return +(
-            Math.round(+arr[0] + 'e' + sig + (+arr[1] + scale)) +
-            'e-' +
+            Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) +
+            "e-" +
             scale
         );
     }

@@ -7,5 +7,12 @@
     "verification": "https://www.youtube.com/shorts/GVJIgUOkfXg",
     "percentToQualify": "100",
     "password": "Free To Copy",
-    "records": []
+    "records": [
+        {
+            "user": "Pika",
+            "link": "https://drive.google.com/file/d/1172IXacC6BWFwc2ikiBQaMGXJI-p6XDc/view?usp=sharing",
+            "percent": 100,
+            "hz": 1
+        }
+    ]
 }

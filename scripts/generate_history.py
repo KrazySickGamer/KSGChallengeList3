@@ -12,7 +12,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 HISTORY_DIR = DATA_DIR / "history"
 LIST_PATH = DATA_DIR / "_list.json"
-TOTAL_LEVELS = 49
 SCALE = 3
 
 
@@ -20,19 +19,24 @@ def round_score(value: float) -> float:
     return round(value, SCALE)
 
 
-def score(rank: int, percent: int | float | str, min_percent: int | float | str) -> float:
+def score(
+    rank: int,
+    percent: int | float | str,
+    min_percent: int | float | str,
+    total_levels: int,
+) -> float:
     rank = int(rank)
     percent = float(percent)
     min_percent = float(min_percent)
 
-    if rank > TOTAL_LEVELS:
+    if rank > total_levels:
         return 0.0
 
     # Bottom half requires 100%
-    if rank > TOTAL_LEVELS / 2 and percent < 100:
+    if rank > total_levels / 2 and percent < 100:
         return 0.0
 
-    normalized_rank = (rank - 1) / (TOTAL_LEVELS - 1)
+    normalized_rank = (rank - 1) / (total_levels - 1)
     min_score = 3
     base_score = min_score + (200 - min_score) * (1 - math.pow(normalized_rank, 0.4))
     score_value = base_score * ((percent - (min_percent - 1)) / (100 - (min_percent - 1)))
@@ -64,7 +68,10 @@ def write_json(path: Path, payload: Any) -> None:
         file.write("\n")
 
 
-def compute_leaderboard(levels: list[tuple[dict[str, Any], str | None]]) -> tuple[list[dict[str, Any]], list[str]]:
+def compute_leaderboard(
+    levels: list[tuple[dict[str, Any], str | None]],
+    total_levels: int,
+) -> tuple[list[dict[str, Any]], list[str]]:
     score_map: dict[str, dict[str, list[dict[str, Any]]]] = {}
     errs: list[str] = []
 
@@ -83,7 +90,7 @@ def compute_leaderboard(levels: list[tuple[dict[str, Any], str | None]]) -> tupl
             {
                 "rank": rank,
                 "level": level["name"],
-                "score": score(rank, 100, level["percentToQualify"]),
+                "score": score(rank, 100, level["percentToQualify"], total_levels),
                 "link": level["verification"],
             }
         )
@@ -100,7 +107,7 @@ def compute_leaderboard(levels: list[tuple[dict[str, Any], str | None]]) -> tupl
                     {
                         "rank": rank,
                         "level": level["name"],
-                        "score": score(rank, 100, level["percentToQualify"]),
+                        "score": score(rank, 100, level["percentToQualify"], total_levels),
                         "link": record["link"],
                     }
                 )
@@ -110,7 +117,7 @@ def compute_leaderboard(levels: list[tuple[dict[str, Any], str | None]]) -> tupl
                         "rank": rank,
                         "level": level["name"],
                         "percent": record["percent"],
-                        "score": score(rank, record["percent"], level["percentToQualify"]),
+                        "score": score(rank, record["percent"], level["percentToQualify"], total_levels),
                         "link": record["link"],
                     }
                 )
@@ -153,7 +160,11 @@ def main() -> None:
         except Exception:
             levels.append((None, path))
 
-    leaderboard, errs = compute_leaderboard(levels)
+    # Use the number of levels currently listed in _list.json.
+    # This keeps the score calculation in sync when levels are added or removed.
+    total_levels = len(list_paths)
+
+    leaderboard, errs = compute_leaderboard(levels, total_levels)
 
     timestamp = iso_utc_now()
     date_folder = timestamp[:10]

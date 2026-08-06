@@ -1,5 +1,5 @@
 import { store } from "../main.js";
-import { score, totalLevels } from "../score.js";
+import { score } from "../score.js";
 import { fetchEditors, fetchList, fetchHistoryIndex } from "../content.js";
 
 import Spinner from "../components/Spinner.js";
@@ -48,7 +48,7 @@ export default {
                 <table class="list" v-if="list">
                     <tr v-for="([level, err], i) in list">
                         <td class="rank">
-                            <p v-if="i + 1 <= totalLevels" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-if="i + 1 <= list.length" class="type-label-lg">#{{ i + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == i, 'error': !level }">
@@ -109,7 +109,7 @@ export default {
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
-                            <p>{{ score(selected + 1, 100, level.percentToQualify) }}</p>
+                            <p>{{ score(selected + 1, 100, level.percentToQualify, list.length) }}</p>
                         </li>
                         <li>
                             <div class="type-title-sm">ID</div>
@@ -121,8 +121,8 @@ export default {
                         </li>
                     </ul>
                     <h2>Records</h2>
-                    <p v-if="selected + 1 <= totalLevels / 2"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
-                    <p v-else-if="selected + 1 <= totalLevels"><strong>100%</strong> or better to qualify</p>
+                    <p v-if="selected + 1 <= list.length / 2"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
+                    <p v-else-if="selected + 1 <= list.length"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
@@ -235,7 +235,6 @@ export default {
         loading: true,
         selected: 0,
         errors: [],
-        totalLevels,
         roleIconMap,
         store,
         availableSnapshots: [],
@@ -341,30 +340,40 @@ export default {
     },
 
     async mounted() {
-        // Hide loading spinner
-        this.availableSnapshots = await fetchHistoryIndex();
-        this.list = await fetchList();
-        this.editors = await fetchEditors();
+        try {
 
-        // Error handling
-        if (!this.list) {
-            this.errors = [
-                "Failed to load list. Retry in a few minutes or notify list staff.",
-            ];
-        } else {
-            this.errors.push(
-                ...this.list
-                    .filter(([_, err]) => err)
-                    .map(([_, err]) => {
-                        return `Failed to load level. (${err}.json)`;
-                    })
-            );
-            if (!this.editors) {
+            // Load page data
+            this.availableSnapshots = await fetchHistoryIndex();
+            this.list = await fetchList();
+            this.editors = await fetchEditors();
+
+            // Error handling
+            if (!this.list) {
+                this.errors = [
+                    "Failed to load list. Retry in a few minutes or notify list staff.",
+                ];
+            } else {
+                this.errors.push(
+                    ...this.list
+                        .filter(([_, err]) => err)
+                        .map(([_, err]) => {
+                            return `Failed to load level. (${err}.json)`;
+                        })
+                );
+
+                if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
+                }
             }
-        }
+        } catch (error) {
+            console.error("Failed to load page:", error);
 
-        this.loading = false;
+            this.errors.push(
+                `Failed to load page data: ${error.message}`
+            );
+        } finally {
+            this.loading = false;
+        }
     },
     methods: {
         score,
